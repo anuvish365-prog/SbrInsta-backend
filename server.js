@@ -41,24 +41,19 @@ app.use(express.json({ limit: "1mb" }));
    YT-DLP
 ========================= */
 
-const ytDlpPath =
-    path.join(__dirname, "yt-dlp.exe");
+const platformName = process.platform;
+let ytDlpPath;
 
-
-if (!fs.existsSync(ytDlpPath)) {
-
-    console.error(
-        "ERROR: yt-dlp.exe nahi mila:"
-    );
-
-    console.error(ytDlpPath);
-
-    process.exit(1);
+if (platformName === "win32") {
+    // Windows ke liye local .exe file
+    ytDlpPath = path.join(__dirname, "yt-dlp.exe");
+} else {
+    // Linux / Render ke liye global ya default yt-dlp
+    ytDlpPath = "yt-dlp"; 
 }
 
+const ytDlpWrap = new YtDlpWrap(ytDlpPath);
 
-const ytDlpWrap =
-    new YtDlpWrap(ytDlpPath);
 
 
 /* =========================
