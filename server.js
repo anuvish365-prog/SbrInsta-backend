@@ -45,11 +45,9 @@ const platformName = process.platform;
 let ytDlpPath;
 
 if (platformName === "win32") {
-    // Windows ke liye local .exe file
     ytDlpPath = path.join(__dirname, "yt-dlp.exe");
 } else {
-    // Linux / Render ke liye global ya default yt-dlp
-    ytDlpPath = "yt-dlp"; 
+    ytDlpPath = path.join(__dirname, "yt-dlp"); // Linux ke liye local folder wala yt-dlp
 }
 
 const ytDlpWrap = new YtDlpWrap(ytDlpPath);
